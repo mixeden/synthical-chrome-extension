@@ -20,3 +20,17 @@ function handleNavigation(details) {
 chrome.webNavigation.onBeforeNavigate.addListener(handleNavigation, {
     url: platforms.flatMap(p => p.hostnames.map(h => ({ hostEquals: h })))
 });
+
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+    if (message.type === 'GET_SYNTHICAL_URL') {
+        const { url } = message;
+        const platform = findPlatform(url);
+        if (platform) {
+            const id = extractId(url, platform);
+            if (id) {
+                const synthicalUrl = platform.synthicalUrl(id);
+                sendResponse({ synthicalUrl, pl: platform });
+            }
+        }
+    }
+});
