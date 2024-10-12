@@ -49,13 +49,12 @@ function addButtonToPage(synthicalUrl, platform) {
 		'arxiv': '.metatable',
 		'biorxiv': '.highwire-cite-metadata',
 		'medrxiv': '.highwire-cite-metadata',
-		'huggingface': '.pb-10.md\\:pt-3', // Escape the ":" with double backslashes
+		'huggingface': '.pb-10.md\\:pt-3',
 		'chemrxiv': '.c-article-header__buttons-container'
 	};
 
 	const selector = selectors[platform.id] || 'body';
 	const targetElement = document.querySelector(selector);
-	console.log("f")
 
 	if (targetElement) {
 		const button = createSynthicalButton(synthicalUrl);
